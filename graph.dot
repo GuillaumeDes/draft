@@ -1,0 +1,58 @@
+digraph{
+  ranksep=0.25;
+  orientation=portrait;
+  nodesep=0.05;
+  sch0[label="<f0> Loan_ID|<f1> Gender|<f2> Married|<f3> Dependents|<f4> Education|<f5> Self_Employed|<f6> ApplicantIncome|<f7> CoapplicantIncome|<f8> LoanAmount|<f9> Loan_Amount_Term|<f10> Credit_History|<f11> Property_Area",shape=record,fontsize=8];
+
+  node1[label="union",shape=box,style="filled,rounded",color=cyan,fontsize=12];
+  sch0:f6 -> node1;
+  sch0:f7 -> node1;
+  sch0:f8 -> node1;
+  sch0:f9 -> node1;
+  sch0:f10 -> node1;
+  sch1[label="<f0> -v-0",shape=record,fontsize=8];
+  node1 -> sch1:f0;
+
+  node2[label="SimpleImputer",shape=box,style="filled,rounded",color=cyan,fontsize=12];
+  sch1:f0 -> node2;
+  sch2[label="<f0> -v-1",shape=record,fontsize=8];
+  node2 -> sch2:f0;
+
+  node3[label="StandardScaler",shape=box,style="filled,rounded",color=cyan,fontsize=12];
+  sch2:f0 -> node3;
+  sch3[label="<f0> -v-1",shape=record,fontsize=8];
+  node3 -> sch3:f0;
+
+  node4[label="union",shape=box,style="filled,rounded",color=cyan,fontsize=12];
+  sch0:f0 -> node4;
+  sch0:f1 -> node4;
+  sch0:f2 -> node4;
+  sch0:f3 -> node4;
+  sch0:f4 -> node4;
+  sch0:f5 -> node4;
+  sch0:f11 -> node4;
+  sch4[label="<f0> -v-2",shape=record,fontsize=8];
+  node4 -> sch4:f0;
+
+  node5[label="SimpleImputer",shape=box,style="filled,rounded",color=cyan,fontsize=12];
+  sch4:f0 -> node5;
+  sch5[label="<f0> -v-3",shape=record,fontsize=8];
+  node5 -> sch5:f0;
+
+  node6[label="OneHotEncoder",shape=box,style="filled,rounded",color=cyan,fontsize=12];
+  sch5:f0 -> node6;
+  sch6[label="<f0> -v-3",shape=record,fontsize=8];
+  node6 -> sch6:f0;
+
+  node7[label="union",shape=box,style="filled,rounded",color=cyan,fontsize=12];
+  sch3:f0 -> node7;
+  sch6:f0 -> node7;
+  sch7[label="<f0> -v-4",shape=record,fontsize=8];
+  node7 -> sch7:f0;
+
+  node8[label="RandomForestClassifier",shape=box,style="filled,rounded",color=yellow,fontsize=12];
+  sch7:f0 -> node8;
+  sch8[label="<f0> PredictedLabel|<f1> Probabilities",shape=record,fontsize=8];
+  node8 -> sch8:f0;
+  node8 -> sch8:f1;
+}
